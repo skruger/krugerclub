@@ -1,0 +1,67 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block extra_head %}
+  <meta name="description" content="Sign up with TrackHobbs.com to track your flying club or flight school's flights, maintenance, memberships, billing, and more."/>
+{% endblock %}
+
+{% block content %}
+<h1>{% trans "Sign Up" %}</h1>
+
+<div class="row equal">
+
+  <div class="col-md-6">
+    {% get_providers as socialaccount_providers %}
+
+    {% if socialaccount_providers %}
+
+      <div class="card" style="height: 100%">
+        <div class="card-header">Sign up using Social Account login</div>
+        <div class="card-body">
+          <ul class="socialaccount_providers">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+          </ul>
+        </div>
+      </div>
+
+    {% endif %}
+  </div>
+  <div class="col-md-6">
+    <div class="card" style="height: 100%">
+      <div class="card-header">{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</div>
+      <div class="card-body">
+
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+          {% csrf_token %}
+          {% include 'includes/fields/_form_errors.html' %}
+          {% include 'includes/fields/_text_field.html' with field=form.username %}
+          {% include 'includes/fields/_text_field.html' with field=form.email %}
+          {% include 'includes/fields/_text_field.html' with field=form.password1 field_name="Password" %}
+          {% include 'includes/fields/_text_field.html' with field=form.password2 field_name="Password (confirm)" %}
+
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <div class="text-right">
+            <span class="float-left">
+              {{ form.captcha }}
+              {% if form.captcha.errors %}
+                <span class="text-danger">
+                  {{ form.captcha.errors|striptags }}
+                </span>
+              {% endif %}
+            </span>
+            <button class="btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

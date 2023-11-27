@@ -1,0 +1,6 @@
+<div class="alert {{ alert_class|default:'alert-info' }} alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {{ alert_message|default:"No 'alert_message' set!" }}
+</div>
