@@ -213,17 +213,18 @@ LOGGING = {
         '': {
             'level': 'INFO',
             'handlers': ['console'],
-            'propagate': False,
+            'propagate': True,
         },
-        'django': {
-            'handlers': ['console'],
-            'propagate': False,
-            'level': 'INFO',
-        },
-        # 'django.request': {
-        #     'handlers': ['mail_admins'],
-        #     'level': 'ERROR',
-        #     'propagate': True,
+        # 'django': {
+        #     'handlers': ['console'],
+        #     'propagate': False,
+        #     'level': 'INFO',
         # },
+        'django.request': {
+            # 'handlers': ['mail_admins'],
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     },
 }
