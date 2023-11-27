@@ -179,3 +179,51 @@ WAGTAIL_SITE_NAME = "Kruger.Club"
 
 WTKNOWLEDGEBASE_STATIC_BLOCKS = []
 WTKNOWLEDGEBASE_STRUCT_BLOCKS = []
+
+LOGGING = {
+    'version': 1,
+    'formatters': {
+        'standard': {
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+        'verbose': {
+            'format': 'flightclub[%(process)d]: %(levelname)s %(name)s[%(module)s] %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+            'level': 'DEBUG',
+        },
+        # 'syslog': {
+        #     'class': 'logging.handlers.SysLogHandler',
+        #     'level': 'INFO',
+        #     'formatter': 'verbose',
+        #     'address': '/dev/log',
+        #     'facility': 'local2',
+        # },
+        # 'mail_admins': {
+        #     'level': 'ERROR',
+        #     'class': 'django.utils.log.AdminEmailHandler',
+        # }
+    },
+    'loggers': {
+        '': {
+            'level': 'INFO',
+            'handlers': ['console'],
+            'propagate': False,
+        },
+        'django': {
+            'handlers': ['console'],
+            'propagate': False,
+            'level': 'INFO',
+        },
+        # 'django.request': {
+        #     'handlers': ['mail_admins'],
+        #     'level': 'ERROR',
+        #     'propagate': True,
+        # },
+    },
+}
